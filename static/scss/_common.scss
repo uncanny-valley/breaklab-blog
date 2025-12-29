@@ -1,0 +1,122 @@
+@use 'variables';
+@use 'sass:math';
+
+    
+::selection {
+    background-color: variables.$color-text;
+    color: variables.$color-bg;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: variables.$font-serif;
+    line-height: variables.$line-height-base;
+    color: variables.$color-text;
+    background-color: variables.$color-bg;
+    max-width: variables.$max-width-page;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-size: variables.$font-size-base;
+}
+
+a {
+    color: variables.$color-text;
+    text-decoration: underline;
+    text-decoration-color: #ccc;
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+
+    &:hover {
+        text-decoration-color: variables.$color-text;
+    }
+}
+
+
+#logo {
+    font-family: variables.$font-sans;
+    font-weight: 600;
+    font-size: 1rem;
+    color: variables.$color-text;
+    text-decoration: none;
+    padding: 0 20px;
+
+    &:hover {
+        color: variables.$color-text;
+    }
+}
+
+header {
+    padding: variables.$spacing-lg 0;
+    border-bottom: 1px solid variables.$color-border;
+    margin-bottom: variables.$spacing-xl;
+
+    nav {
+        font-family: variables.$font-sans;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.btn-rss {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: #cc785c;
+    color: #fff;
+    padding: 0.4rem 0.9rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    transition: background-color 0.15s ease;
+
+    svg {
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        background-color: #b5684e;
+    }
+}
+
+main {
+    min-height: calc(100vh - 400px);
+}
+
+footer {
+    font-family: variables.$font-sans;
+    padding: variables.$spacing-xl 0;
+    margin-top: variables.$spacing-3xl;
+    border-top: 1px solid variables.$color-border;
+    text-align: center;
+    font-size: 0.85rem;
+    color: variables.$color-text-muted;
+}
+
+
+#newsletter-form {
+    display: inline-block;
+    width: 480px;
+    max-width: 90vw;
+    margin-top: 20px;
+
+    .mastfoot {
+        display: none;
+    }
+}
+
+@media (max-width: variables.$breakpoint-mobile) {
+    body {
+        padding: 0 15px;
+        font-size: 16px;
+    }
+}
+

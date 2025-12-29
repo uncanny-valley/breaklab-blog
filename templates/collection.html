@@ -1,0 +1,23 @@
+{{define "content"}}
+<div class="collection">
+    <header class="collection-header">
+        <h1>{{.Title}}</h1>
+        {{if .Description}}<div class="collection-description">{{.Description}}</div>{{end}}
+    </header>
+    <div class="collection-posts">
+        {{range .Posts}}
+        <a class="list-item" href="/post/{{.Slug}}">
+            <h2 class="list-item-title">{{.Title}}</h2>
+            <div class="list-item-meta">
+                <time>{{.Date}}</time>
+                <span class="spacer">•</span>
+                <span class="read-time">{{.ReadTimeInMinutes}} min read</span>
+            </div>
+            {{if .Description}}<p class="list-item-description">{{.Description}}</p>{{end}}
+        </a>
+        {{else}}
+        <p class="empty-state">No posts in this collection yet.</p>
+        {{end}}
+    </div>
+</div>
+{{end}}

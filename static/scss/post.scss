@@ -1,0 +1,349 @@
+@use 'common';
+@use 'variables';
+@use 'components';
+
+.post {
+    position: relative;
+}
+
+// Table of Contents Sidebar
+.toc-sidebar {
+    position: fixed;
+    left: calc(50% - 400px - 280px);
+    top: 8rem;
+    width: 240px;
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+
+    &.scrolled {
+        opacity: 0.5;
+    }
+
+    &:hover {
+        opacity: 1 !important;
+    }
+}
+
+.toc-nav {
+    font-family: variables.$font-sans;
+    padding: variables.$spacing-md;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 4px;
+}
+
+.toc-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: variables.$color-text-muted;
+    margin-bottom: variables.$spacing-sm;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-item {
+    margin-bottom: variables.$spacing-xs;
+}
+
+.toc-level-2 {
+    padding-left: 0;
+}
+
+.toc-level-3 {
+    padding-left: variables.$spacing-sm;
+    font-size: 0.9rem;
+}
+
+.toc-link {
+    display: block;
+    color: variables.$color-text-muted;
+    text-decoration: none;
+    line-height: 1.4;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+    font-size: 1rem;
+
+    &:hover {
+        color: variables.$color-text;
+    }
+
+    &.active {
+        color: variables.$color-text;
+        font-weight: 600;
+    }
+}
+
+// Adjust main content when TOC is present
+.post:has(.toc-sidebar) .post-header,
+.post:has(.toc-sidebar) .post-content {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-header {
+    max-width: variables.$max-width-content;
+    margin: 0 auto variables.$spacing-xl;
+    padding: 0 0 variables.$spacing-lg 0;
+    border-bottom: 2px solid variables.$color-text;
+    font-family: variables.$font-sans;
+
+    h1 {
+        font-family: variables.$font-sans;
+        font-size: 3rem;
+        line-height: 1.15;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+
+    .post-description {
+        font-size: 1.25rem;
+        line-height: 1.5;
+        font-weight: 400;
+        color: variables.$color-text-muted;
+        margin-top: variables.$spacing-sm;
+    }
+}
+
+.post-meta {
+    font-family: variables.$font-sans;
+    color: variables.$color-text-muted;
+    font-size: 0.85rem;
+    margin-bottom: variables.$spacing-md;
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-xs;
+}
+
+.post-content {
+    max-width: variables.$max-width-content;
+    margin: 0 auto;
+    position: relative;
+
+    p {
+        margin-bottom: 1rem;
+    }
+
+    h2 {
+        margin-top: variables.$spacing-xl;
+        margin-bottom: 1.25rem;
+        font-family: variables.$font-sans;
+        font-size: 1.75rem;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    h3 {
+        margin-top: variables.$spacing-lg;
+        margin-bottom: variables.$spacing-sm;
+        font-family: variables.$font-sans;
+        font-size: 1.35rem;
+        font-weight: 600;
+    }
+
+    code {
+        background: variables.$color-code-bg;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: variables.$font-mono;
+        font-size: 0.88em;
+        color: variables.$color-text;
+    }
+
+    pre {
+        background: variables.$color-code-bg;
+        padding: 1.25rem;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin-bottom: 1.75rem;
+        border: 1px solid variables.$color-border;
+
+        code {
+            background: none;
+            padding: 0;
+        }
+    }
+
+    blockquote {
+        border-left: 3px solid variables.$color-text;
+        padding-left: variables.$spacing-md;
+        margin: variables.$spacing-lg 0;
+        font-style: italic;
+        color: variables.$color-text-light;
+    }
+
+    ul,
+    ol {
+        margin-bottom: 1.75rem;
+        padding-left: variables.$spacing-lg;
+    }
+
+    li {
+        margin-bottom: variables.$spacing-xs;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid variables.$color-border;
+        margin: variables.$spacing-xl 0;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: variables.$spacing-lg auto;
+    }
+
+    figcaption {
+        font-family: variables.$font-sans;
+        font-size: 0.85rem;
+        color: variables.$color-text-muted;
+        text-align: center;
+        margin-top: variables.$spacing-xs;
+        font-style: italic;
+    }
+}
+
+.sidenote {
+    font-family: variables.$font-sans;
+    float: right;
+    clear: right;
+    width: 280px;
+    margin-right: -320px;
+    margin-top: 0;
+    margin-bottom: variables.$spacing-sm;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: variables.$color-text-muted;
+    position: relative;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    padding: 0.25rem 0.5rem;
+    margin-left: -0.5rem;
+    border-radius: 4px;
+
+    &.highlight {
+        color: variables.$color-text;
+        background-color: rgba(204, 120, 92, 0.12);
+    }
+}
+
+.sidenote-ref {
+    vertical-align: super;
+    font-size: 0.7em;
+    color: #cc785c;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: color 0.15s ease;
+
+    &:hover {
+        color: variables.$color-text;
+    }
+}
+
+.sidenote-number {
+    font-weight: 600;
+    margin-right: 0.3rem;
+    color: #cc785c;
+}
+
+// Footnotes section for mobile
+.footnotes {
+    display: none;
+    max-width: variables.$max-width-content;
+    margin: variables.$spacing-xl auto 0;
+    padding-top: variables.$spacing-lg;
+    border-top: 1px solid variables.$color-border;
+
+    h3 {
+        font-family: variables.$font-sans;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: variables.$color-text-muted;
+        margin-bottom: variables.$spacing-md;
+    }
+}
+
+.footnote {
+    font-family: variables.$font-sans;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: variables.$color-text-muted;
+    margin-bottom: variables.$spacing-sm;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    scroll-margin-top: 80px;
+
+    &.highlight {
+        background-color: rgba(204, 120, 92, 0.12);
+    }
+}
+
+.footnote-number {
+    font-weight: 600;
+    color: #cc785c;
+    margin-right: 0.3rem;
+}
+
+.footnote-backlink {
+    color: #cc785c;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    font-size: 0.8em;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// Mobile responsive
+@media (max-width: variables.$breakpoint-desktop) {
+    .toc-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: variables.$breakpoint-tablet) {
+    .sidenote {
+        display: none;
+    }
+
+    .footnotes {
+        display: block;
+    }
+}
+
+@media (max-width: variables.$breakpoint-mobile) {
+    .post-header {
+        padding: variables.$spacing-lg 0;
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .post-description {
+            font-size: 1.1rem;
+        }
+    }
+
+    .post-content {
+        h2 {
+            font-size: 1.5rem;
+            margin-top: variables.$spacing-lg;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+    }
+}
+

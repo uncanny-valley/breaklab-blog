@@ -1,0 +1,40 @@
+@use 'common';
+@use 'variables';
+@use 'components';
+
+.index {
+    @extend .content-container;
+}
+
+.collections-index {
+    @extend .content-container;
+}
+
+.collection {
+    @extend .content-container;
+}
+
+.collection-header {
+    margin-bottom: variables.$spacing-xl;
+    padding-bottom: variables.$spacing-lg;
+    border-bottom: 2px solid variables.$color-text;
+
+    h1 {
+        @extend .page-title;
+        margin-bottom: variables.$spacing-sm;
+    }
+
+    .collection-description {
+        font-size: 1.15rem;
+        color: variables.$color-text-muted;
+        line-height: 1.6;
+    }
+}
+
+@media (max-width: variables.$breakpoint-mobile) {
+    .collection-header {
+        .collection-description {
+            font-size: 1rem;
+        }
+    }
+}

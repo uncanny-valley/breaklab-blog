@@ -1,0 +1,389 @@
+::selection {
+  background-color: #1a1a1a;
+  color: #fefefe;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.75;
+  color: #1a1a1a;
+  background-color: #fefefe;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-size: 18px;
+}
+
+a {
+  color: #1a1a1a;
+  text-decoration: underline;
+  text-decoration-color: #ccc;
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s;
+}
+a:hover {
+  text-decoration-color: #1a1a1a;
+}
+
+#logo {
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1a1a1a;
+  text-decoration: none;
+  padding: 0 20px;
+}
+#logo:hover {
+  color: #1a1a1a;
+}
+
+header {
+  padding: 2rem 0;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 3rem;
+}
+header nav {
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-rss {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #cc785c;
+  color: #fff;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  transition: background-color 0.15s ease;
+}
+.btn-rss svg {
+  flex-shrink: 0;
+}
+.btn-rss:hover {
+  background-color: #b5684e;
+}
+
+main {
+  min-height: calc(100vh - 400px);
+}
+
+footer {
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 3rem 0;
+  margin-top: 5rem;
+  border-top: 1px solid #e8e8e8;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+#newsletter-form {
+  display: inline-block;
+  width: 480px;
+  max-width: 90vw;
+  margin-top: 20px;
+}
+#newsletter-form .mastfoot {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 0 15px;
+    font-size: 16px;
+  }
+}
+.content-container, .index, .collections-index, .collection {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.page-title, .collection-header h1 {
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 3rem;
+}
+
+.list-item {
+  display: block;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e8e8e8;
+  text-decoration: none;
+  color: #1a1a1a;
+}
+.list-item:last-child {
+  border-bottom: none;
+}
+.list-item:hover .list-item-title {
+  color: #555;
+}
+.list-item a {
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+.list-item-title {
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+  transition: color 0.15s ease;
+}
+
+.list-item-description {
+  font-size: 1rem;
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #666;
+  line-height: 2;
+  margin-bottom: 0.5rem;
+}
+
+.list-item-meta {
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.85rem;
+  color: #999;
+  line-height: 1.8;
+}
+
+.list-item-collection {
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state {
+  color: #666;
+  font-style: italic;
+}
+
+.badge {
+  display: inline-block;
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.badge.badge-0 {
+  background-color: rgba(201, 89, 58, 0.12);
+  color: #c9593a;
+}
+.badge.badge-0:hover {
+  background-color: rgba(201, 89, 58, 0.22);
+}
+.badge.badge-1 {
+  background-color: rgba(42, 138, 110, 0.12);
+  color: #2a8a6e;
+}
+.badge.badge-1:hover {
+  background-color: rgba(42, 138, 110, 0.22);
+}
+.badge.badge-2 {
+  background-color: rgba(88, 103, 178, 0.12);
+  color: #5867b2;
+}
+.badge.badge-2:hover {
+  background-color: rgba(88, 103, 178, 0.22);
+}
+.badge.badge-3 {
+  background-color: rgba(180, 74, 118, 0.12);
+  color: #b44a76;
+}
+.badge.badge-3:hover {
+  background-color: rgba(180, 74, 118, 0.22);
+}
+.badge.badge-4 {
+  background-color: rgba(154, 123, 45, 0.12);
+  color: #9a7b2d;
+}
+.badge.badge-4:hover {
+  background-color: rgba(154, 123, 45, 0.22);
+}
+.badge:not([class*=badge-]) {
+  background-color: rgba(201, 89, 58, 0.12);
+  color: #c9593a;
+}
+.badge:not([class*=badge-]):hover {
+  background-color: rgba(201, 89, 58, 0.22);
+}
+
+.collection-card {
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 1.25rem 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+.collection-card.card-0 {
+  background-color: rgba(201, 89, 58, 0.08);
+  border-left: 3px solid #c9593a;
+}
+.collection-card.card-0 .collection-card-label {
+  color: #c9593a;
+}
+.collection-card.card-0 .collection-card-title a {
+  color: #c9593a;
+}
+.collection-card.card-0 .collection-card-title a:hover {
+  color: rgb(163.2509960159, 70.438247012, 44.7490039841);
+}
+.collection-card.card-0 *::selection {
+  background-color: #c9593a;
+  color: #fefefe;
+}
+.collection-card.card-1 {
+  background-color: rgba(42, 138, 110, 0.08);
+  border-left: 3px solid #2a8a6e;
+}
+.collection-card.card-1 .collection-card-label {
+  color: #2a8a6e;
+}
+.collection-card.card-1 .collection-card-title a {
+  color: #2a8a6e;
+}
+.collection-card.card-1 .collection-card-title a:hover {
+  color: rgb(30.1, 98.9, 78.8333333333);
+}
+.collection-card.card-1 *::selection {
+  background-color: #2a8a6e;
+  color: #fefefe;
+}
+.collection-card.card-2 {
+  background-color: rgba(88, 103, 178, 0.08);
+  border-left: 3px solid #5867b2;
+}
+.collection-card.card-2 .collection-card-label {
+  color: #5867b2;
+}
+.collection-card.card-2 .collection-card-title a {
+  color: #5867b2;
+}
+.collection-card.card-2 .collection-card-title a:hover {
+  color: rgb(67.8483606557, 81.0655737705, 147.1516393443);
+}
+.collection-card.card-2 *::selection {
+  background-color: #5867b2;
+  color: #fefefe;
+}
+.collection-card.card-3 {
+  background-color: rgba(180, 74, 118, 0.08);
+  border-left: 3px solid #b44a76;
+}
+.collection-card.card-3 .collection-card-label {
+  color: #b44a76;
+}
+.collection-card.card-3 .collection-card-title a {
+  color: #b44a76;
+}
+.collection-card.card-3 .collection-card-title a:hover {
+  color: rgb(143.8582677165, 59.1417322835, 94.3070866142);
+}
+.collection-card.card-3 *::selection {
+  background-color: #b44a76;
+  color: #fefefe;
+}
+.collection-card.card-4 {
+  background-color: rgba(154, 123, 45, 0.08);
+  border-left: 3px solid #9a7b2d;
+}
+.collection-card.card-4 .collection-card-label {
+  color: #9a7b2d;
+}
+.collection-card.card-4 .collection-card-title a {
+  color: #9a7b2d;
+}
+.collection-card.card-4 .collection-card-title a:hover {
+  color: rgb(114.5326633166, 91.4773869347, 33.4673366834);
+}
+.collection-card.card-4 *::selection {
+  background-color: #9a7b2d;
+  color: #fefefe;
+}
+.collection-card:not([class*=card-]) {
+  background-color: rgba(201, 89, 58, 0.08);
+  border-left: 3px solid #c9593a;
+}
+.collection-card:not([class*=card-]) .collection-card-label {
+  color: #c9593a;
+}
+.collection-card:not([class*=card-]) .collection-card-title a {
+  color: #c9593a;
+}
+.collection-card:not([class*=card-]) .collection-card-title a:hover {
+  color: rgb(163.2509960159, 70.438247012, 44.7490039841);
+}
+.collection-card .collection-card-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+.collection-card .collection-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+.collection-card .collection-card-title a {
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.collection-card .collection-card-description {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+.collection-card .collection-card-description p {
+  margin: 0.75rem 0;
+}
+
+@media (max-width: 768px) {
+  .page-title, .collection-header h1 {
+    font-size: 2rem;
+  }
+  .list-item-title {
+    font-size: 1.3rem;
+  }
+  .collection-card {
+    padding: 1rem 1.25rem;
+  }
+}
+.collection-header {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #1a1a1a;
+}
+.collection-header h1 {
+  margin-bottom: 1rem;
+}
+.collection-header .collection-description {
+  font-size: 1.15rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .collection-header .collection-description {
+    font-size: 1rem;
+  }
+}

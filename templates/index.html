@@ -1,0 +1,16 @@
+{{define "content"}}
+<div class="index">
+    {{range .Posts}}
+    <div class="list-item">
+        <a href="/post/{{.Slug}}"><h2 class="list-item-title">{{.Title}}</h2></a>
+        <div class="list-item-meta">
+            <time>{{.Date}}</time>
+            <span class="spacer">•</span>
+            <span class="read-time">{{.ReadTimeInMinutes}} min read</span>
+        </div>
+        {{if .Collection}}<div class="list-item-collection"><a class="badge badge-{{hashColor .Collection}}" href="/collection/{{.Collection}}">{{formatSlug .Collection}}</a></div>{{end}}
+        {{if .Description}}<p class="list-item-description">{{.Description}}</p>{{end}}
+    </div>
+    {{end}}
+</div>
+{{end}}

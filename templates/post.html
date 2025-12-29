@@ -1,0 +1,46 @@
+{{define "content"}}
+<article class="post">
+    {{if .TOC}}
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <nav class="toc-nav">
+            <h4 class="toc-title">Table of contents</h4>
+            <ul class="toc-list">
+                {{range .TOC}}
+                <li class="toc-item toc-level-{{.Level}}">
+                    <a href="#{{.ID}}" class="toc-link" data-target="{{.ID}}">{{.Text}}</a>
+                </li>
+                {{end}}
+            </ul>
+        </nav>
+    </aside>
+    {{end}}
+    <header class="post-header">
+        <div class="post-meta">
+            {{if .Collection}}
+            <span class="collection-name"><a href="/collection/{{.Collection}}">{{.CollectionTitle}}</a></span>
+            <span class="spacer">•</span>
+            {{end}}
+            <time>Published {{.Date}}</time>
+            <span class="spacer">•</span>
+            <span class="read-time">{{.ReadTimeInMinutes}} min read</span>
+        </div>
+        <h1>{{.Title}}</h1>
+        {{if .Description}}<p class="post-description">{{.Description}}</p>{{end}}
+    </header>
+    <div class="post-content">
+        {{if .Collection}}
+        <div class="collection-card card-{{hashColor .Collection}}">
+            <div class="collection-card-label">Part {{.CollectionIndex}} of {{.CollectionTotal}} in a collection</div>
+            <div class="collection-card-title"><a href="/collection/{{.Collection}}">{{.CollectionTitle}}</a></div>
+            {{if .CollectionDescription}}<div class="collection-card-description">{{.CollectionDescription}}</div>{{end}}
+        </div>
+        {{end}}
+        {{.Content}}
+    </div>
+    <section class="footnotes">
+        <h3>Notes</h3>
+        <div class="footnotes-list"></div>
+    </section>
+</article>
+{{end}}
+

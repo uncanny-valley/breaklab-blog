@@ -1,0 +1,29 @@
+<!-- title: Crossing the AI Moat: How LLMs Recall -->
+<!-- date: 2025-12-28 -->
+<!-- description: Addressing my knowledge gaps about what LLMs are optimized for, why they excel at some tasks but not others, and how they retain context. -->
+<!-- collection: crossing-the-ai-moat -->
+
+
+<p>Because you're reading this, you're probably already familiar with large language models (LLMs), or at least with the growing sense that something is changing in how humans learn and produce work.
+As a software engineer and generalist, it's become increasingly hard to dismiss this as background noise. LLMs are changing the texture of day-to-day work, and pushing us toward new abstractions that we'll need to learn if we want to stay effective.</p>
+
+<p>
+    This is my public attempt at learning these concepts. The intent of this collection of posts isn't to provide a structured guide on how to understand AI. Instead, I'll take a nonlinear, top-down approach: I'll ask questions that I'm curious about and try my best to answer them. My hope is that these rabbit holes will organically unearth deeper, foundational concepts that I'll pick up on an as-needed basis.
+
+    I'll invariably make mistakes (and that's kind of the point), but I'll try my best to revise my mental models as I recognize them.
+</p>
+
+<p>
+    Here are some of the questions I'm interested in this week:
+    <ul>
+        <li>What exactly are LLMs trained to do?</li>
+        <li>What does it actually mean for an LLM to <i>recall</i> a piece of information, and why does that ability degrade at scale?</li>
+        <li>How do LLMs retrieve context that it can't recall?</li>
+        <li>Why are LLMs excellent at procedural reasoning over verbatim factual recall?</li>
+    </ul>
+</p>
+
+
+<h2>What LLMs are trained to do</h2>
+
+LLMs are trained to minimize next-token prediction loss.

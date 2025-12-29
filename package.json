@@ -1,0 +1,12 @@
+{
+  "name": "breaklab-blog",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "sass static/scss:static/css --no-source-map",
+    "watch:css": "sass static/scss:static/css --watch --no-source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.83.0"
+  }
+}
+

@@ -1,0 +1,16 @@
+{{define "content"}}
+<div class="collections-index">
+    <h1 class="page-title">Collections</h1>
+    <div class="collections-list">
+        {{range .Collections}}
+        <a class="list-item" href="/collection/{{.Slug}}">
+            <h2 class="list-item-title">{{.Title}}</h2>
+            {{if .DescriptionText}}<p class="list-item-description">{{.DescriptionText}}</p>{{end}}
+            <span class="list-item-meta">{{len .Posts}} {{if eq (len .Posts) 1}}post{{else}}posts{{end}}</span>
+        </a>
+        {{else}}
+        <p class="empty-state">No collections yet.</p>
+        {{end}}
+    </div>
+</div>
+{{end}}

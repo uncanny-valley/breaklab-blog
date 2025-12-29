@@ -1,0 +1,44 @@
+// Colors
+$color-text: #1a1a1a;
+$color-text-light: #444;
+$color-text-muted: #666;
+$color-text-lighter: #999;
+$color-bg: #fefefe;
+$color-border: #e8e8e8;
+$color-code-bg: #f4f4f4;
+$color-hover: #555;
+
+// Badge colors
+$badge-colors: (
+    0: #c9593a,  // burnt orange
+    1: #2a8a6e,  // emerald
+    2: #5867b2,  // indigo
+    3: #b44a76,  // raspberry
+    4: #9a7b2d,  // golden
+);
+
+// Typography
+$font-serif: Georgia, 'Times New Roman', serif;
+$font-sans: 'IBM Plex Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-mono: "SF Mono", Monaco, "Cascadia Code", "Consolas", monospace;
+
+// Base sizes
+$font-size-base: 18px;
+$line-height-base: 1.75;
+$max-width-content: 640px;
+$max-width-page: 1400px;
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+$spacing-2xl: 4rem;
+$spacing-3xl: 5rem;
+
+// Breakpoints
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1200px;
+$breakpoint-desktop: 1400px;
+

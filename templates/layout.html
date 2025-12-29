@@ -1,0 +1,203 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{if .Title}}{{.Title}}{{else}}BreakLab{{end}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+    {{if eq .PageType "post"}}
+    <link rel="stylesheet" href="/static/css/post.css">
+    {{else}}
+    <link rel="stylesheet" href="/static/css/index.css">
+    {{end}}
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml">
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="logo">BreakLab</a>
+            <a href="/feed.xml" class="btn-rss"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>RSS</a>
+        </nav>
+    </header>
+    <main>
+        {{template "content" .}}
+    </main>
+    <footer>
+        <p>&copy; 2026 brandon@breaklab.net. These words were produced by a human. </p>
+        <div id="newsletter-form">
+            <p>Subscribe to get notified when a new post is published:</p>
+            <script async src="https://eocampaign1.com/form/91b1a290-e4e4-11f0-aab4-7b03e4efcf4b.js" data-form="91b1a290-e4e4-11f0-aab4-7b03e4efcf4b"></script>
+        </div>
+    </footer>
+    <script>
+        // table of contents scroll behavior and active heading tracking
+        (function() {
+            const sidebar = document.getElementById('toc-sidebar');
+            if (!sidebar) return;
+
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const headings = Array.from(tocLinks).map(link => {
+                const id = link.getAttribute('data-target');
+                return document.getElementById(id);
+            }).filter(Boolean);
+
+            let isScrolled = false;
+            function updateSidebarOpacity() {
+                const scrollY = window.scrollY || window.pageYOffset;
+                if (scrollY > 100 && !isScrolled) {
+                    isScrolled = true;
+                    sidebar.classList.add('scrolled');
+                } else if (scrollY <= 100 && isScrolled) {
+                    isScrolled = false;
+                    sidebar.classList.remove('scrolled');
+                }
+            }
+
+            // Track active heading
+            function updateActiveHeading() {
+                const scrollY = window.scrollY || window.pageYOffset;
+                const viewportHeight = window.innerHeight;
+                const threshold = viewportHeight * 0.2; // Active when in top 20% of viewport
+
+                let activeHeading = null;
+                for (let i = headings.length - 1; i >= 0; i--) {
+                    const heading = headings[i];
+                    const rect = heading.getBoundingClientRect();
+                    if (rect.top <= threshold) {
+                        activeHeading = heading;
+                        break;
+                    }
+                }
+
+                tocLinks.forEach(link => link.classList.remove('active'));
+
+                if (activeHeading) {
+                    const activeLink = document.querySelector(`.toc-link[data-target="${activeHeading.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            }
+
+            // Smooth scroll on click
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        const offset = 80; // Account for any fixed header
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Throttle scroll events
+            let scrollTimeout;
+            function handleScroll() {
+                if (scrollTimeout) {
+                    window.cancelAnimationFrame(scrollTimeout);
+                }
+                scrollTimeout = window.requestAnimationFrame(function() {
+                    updateSidebarOpacity();
+                    updateActiveHeading();
+                });
+            }
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            // Initialize on load
+            updateSidebarOpacity();
+            updateActiveHeading();
+        })();
+
+        // Syntax highlighting
+        hljs.highlightAll();
+
+        // Sidenote hover highlighting and footnotes
+        (function() {
+            const sidenoteRefs = document.querySelectorAll('.sidenote-ref');
+            const sidenotes = document.querySelectorAll('.sidenote');
+            const footnotesList = document.querySelector('.footnotes-list');
+            
+            if (sidenoteRefs.length === 0) {
+                const footnotesSection = document.querySelector('.footnotes');
+                if (footnotesSection) footnotesSection.style.display = 'none';
+                return;
+            }
+
+            // Assign IDs and populate footnotes
+            sidenoteRefs.forEach((ref, i) => {
+                ref.setAttribute('data-note-id', i);
+                ref.id = 'ref-' + i;
+                
+                if (sidenotes[i]) {
+                    sidenotes[i].setAttribute('data-note-id', i);
+                    sidenotes[i].id = 'sidenote-' + i;
+                    
+                    // Create footnote entry
+                    if (footnotesList) {
+                        const numberSpan = sidenotes[i].querySelector('.sidenote-number');
+                        const number = numberSpan ? numberSpan.textContent : (i + 1);
+                        const text = sidenotes[i].textContent.replace(number, '').trim();
+                        
+                        const footnote = document.createElement('div');
+                        footnote.className = 'footnote';
+                        footnote.id = 'footnote-' + i;
+                        footnote.innerHTML = '<span class="footnote-number">' + number + '</span>' + text + 
+                            '<a href="#ref-' + i + '" class="footnote-backlink">↩</a>';
+                        footnotesList.appendChild(footnote);
+                    }
+                }
+            });
+
+            // Desktop: hover to highlight sidenote
+            sidenoteRefs.forEach(ref => {
+                ref.addEventListener('mouseenter', function() {
+                    const noteId = this.getAttribute('data-note-id');
+                    const sidenote = document.querySelector('.sidenote[data-note-id="' + noteId + '"]');
+                    if (sidenote) sidenote.classList.add('highlight');
+                });
+                ref.addEventListener('mouseleave', function() {
+                    const noteId = this.getAttribute('data-note-id');
+                    const sidenote = document.querySelector('.sidenote[data-note-id="' + noteId + '"]');
+                    if (sidenote) sidenote.classList.remove('highlight');
+                });
+            });
+
+            // Click to scroll to footnote (works on mobile)
+            sidenoteRefs.forEach((ref, i) => {
+                ref.addEventListener('click', function(e) {
+                    const footnote = document.getElementById('footnote-' + i);
+                    const footnotesSection = document.querySelector('.footnotes');
+                    if (footnote && footnotesSection && getComputedStyle(footnotesSection).display !== 'none') {
+                        e.preventDefault();
+                        footnote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        footnote.classList.add('highlight');
+                        setTimeout(() => footnote.classList.remove('highlight'), 2000);
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+{{end}}
+
