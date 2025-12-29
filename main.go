@@ -101,6 +101,17 @@ type CollectionsData struct {
 }
 
 func main() {
+	if len(os.Args) > 1 && os.Args[1] == "build" {
+		baseURL := "https://example.com"
+		if len(os.Args) > 2 {
+			baseURL = os.Args[2]
+		}
+		if err := buildStatic(baseURL); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+
 	http.HandleFunc("/", handleIndex)
 	http.HandleFunc("/post/", handlePost)
 	http.HandleFunc("/collections", handleCollections)
@@ -118,6 +129,159 @@ func main() {
 
 	fmt.Printf("Server starting on http://localhost:%s\n", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
+
+func buildStatic(baseURL string) error {
+	distDir := "dist"
+
+	// Clean and create dist directory
+	os.RemoveAll(distDir)
+	os.MkdirAll(distDir, 0755)
+
+	// Load posts and collections
+	posts, err := loadPosts()
+	if err != nil {
+		return err
+	}
+	collections, err := loadCollections()
+	if err != nil {
+		return err
+	}
+
+	// Build index page
+	fmt.Println("Building index.html...")
+	if err := buildPage(distDir+"/index.html", "templates/layout.html", "templates/index.html",
+		IndexData{Title: "", Posts: posts, PageType: "index"}); err != nil {
+		return err
+	}
+
+	// Build post pages
+	for _, post := range posts {
+		post.PageType = "post"
+		dir := distDir + "/post/" + post.Slug
+		os.MkdirAll(dir, 0755)
+		fmt.Printf("Building post/%s/index.html...\n", post.Slug)
+		if err := buildPage(dir+"/index.html", "templates/layout.html", "templates/post.html", post); err != nil {
+			return err
+		}
+	}
+
+	// Build collections index page
+	fmt.Println("Building collections/index.html...")
+	os.MkdirAll(distDir+"/collections", 0755)
+	if err := buildPage(distDir+"/collections/index.html", "templates/layout.html", "templates/collections.html",
+		CollectionsData{Title: "Collections", Collections: collections, PageType: "collections"}); err != nil {
+		return err
+	}
+
+	// Build individual collection pages
+	for _, collection := range collections {
+		collection.PageType = "collection"
+		dir := distDir + "/collection/" + collection.Slug
+		os.MkdirAll(dir, 0755)
+		fmt.Printf("Building collection/%s/index.html...\n", collection.Slug)
+		if err := buildPage(dir+"/index.html", "templates/layout.html", "templates/collection.html", collection); err != nil {
+			return err
+		}
+	}
+
+	// Build RSS feed
+	fmt.Println("Building feed.xml...")
+	if err := buildRSSFeed(distDir+"/feed.xml", baseURL, posts); err != nil {
+		return err
+	}
+
+	// Copy static assets
+	fmt.Println("Copying static assets...")
+	if err := copyDir("static", distDir+"/static"); err != nil {
+		return err
+	}
+
+	// Copy robots.txt
+	if _, err := os.Stat("robots.txt"); err == nil {
+		fmt.Println("Copying robots.txt...")
+		copyFile("robots.txt", distDir+"/robots.txt")
+	}
+
+	fmt.Println("Build complete! Output in ./dist")
+	return nil
+}
+
+func buildPage(outputPath, layoutPath, contentPath string, data interface{}) error {
+	tmpl, err := parseTemplates(layoutPath, contentPath)
+	if err != nil {
+		return err
+	}
+	f, err := os.Create(outputPath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	return tmpl.ExecuteTemplate(f, "layout", data)
+}
+
+func buildRSSFeed(outputPath, baseURL string, posts []Post) error {
+	var items []Item
+	for _, post := range posts {
+		pubDate := ""
+		if t, err := time.Parse("2006-01-02", post.RawDate); err == nil {
+			pubDate = t.Format(time.RFC1123Z)
+		}
+		description := string(post.Description)
+		if description == "" {
+			description = string(post.Content)
+		}
+		items = append(items, Item{
+			Title:       post.Title,
+			Link:        fmt.Sprintf("%s/post/%s", baseURL, post.Slug),
+			Description: description,
+			PubDate:     pubDate,
+			GUID:        fmt.Sprintf("%s/post/%s", baseURL, post.Slug),
+		})
+	}
+
+	feed := RSS{
+		Version: "2.0",
+		Channel: &Channel{
+			Title:       "BreakLab",
+			Link:        baseURL,
+			Description: "Blog posts from BreakLab",
+			Items:       items,
+		},
+	}
+
+	f, err := os.Create(outputPath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	f.WriteString(xml.Header)
+	encoder := xml.NewEncoder(f)
+	encoder.Indent("", "  ")
+	return encoder.Encode(feed)
+}
+
+func copyDir(src, dst string) error {
+	return filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		relPath, _ := filepath.Rel(src, path)
+		dstPath := filepath.Join(dst, relPath)
+		if info.IsDir() {
+			return os.MkdirAll(dstPath, 0755)
+		}
+		return copyFile(path, dstPath)
+	})
+}
+
+func copyFile(src, dst string) error {
+	input, err := os.ReadFile(src)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(dst, input, 0644)
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
