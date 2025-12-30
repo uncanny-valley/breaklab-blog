@@ -14,13 +14,16 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 var templateFuncs = template.FuncMap{
 	"formatSlug": func(s string) string {
 		s = strings.ReplaceAll(s, "-", " ")
 		s = strings.ReplaceAll(s, "_", " ")
-		return strings.Title(s)
+		return cases.Title(language.English).String(s)
 	},
 	"hashColor": func(s string) int {
 		var hash uint32
