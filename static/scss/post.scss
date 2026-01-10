@@ -30,7 +30,7 @@
 .toc-nav {
     font-family: variables.$font-sans;
     padding: variables.$spacing-md;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(variables.$color-bg-white, 0.95);
     border-radius: 4px;
 }
 
@@ -229,14 +229,14 @@
 
     &.highlight {
         color: variables.$color-text;
-        background-color: rgba(204, 120, 92, 0.12);
+        background-color: rgba(variables.$color-accent, 0.12);
     }
 }
 
 .sidenote-ref {
     vertical-align: super;
     font-size: 0.7em;
-    color: #cc785c;
+    color: variables.$color-accent;
     text-decoration: none;
     cursor: pointer;
     font-weight: 600;
@@ -250,7 +250,7 @@
 .sidenote-number {
     font-weight: 600;
     margin-right: 0.3rem;
-    color: #cc785c;
+    color: variables.$color-accent;
 }
 
 // Footnotes section for mobile
@@ -284,18 +284,18 @@
     scroll-margin-top: 80px;
 
     &.highlight {
-        background-color: rgba(204, 120, 92, 0.12);
+        background-color: rgba(variables.$color-accent, 0.12);
     }
 }
 
 .footnote-number {
     font-weight: 600;
-    color: #cc785c;
+    color: variables.$color-accent;
     margin-right: 0.3rem;
 }
 
 .footnote-backlink {
-    color: #cc785c;
+    color: variables.$color-accent;
     text-decoration: none;
     margin-left: 0.5rem;
     font-size: 0.8em;
@@ -324,7 +324,7 @@
 
 @media (max-width: variables.$breakpoint-mobile) {
     .post-header {
-        padding: variables.$spacing-lg 0;
+        padding: 0 0 variables.$spacing-lg 0;
 
         h1 {
             font-size: 2rem;
@@ -343,6 +343,18 @@
 
         h3 {
             font-size: 1.2rem;
+        }
+    }
+
+    .post-meta {
+        display: block;
+
+        .spacer {
+            display: none;
+        }
+
+        span, time {
+            display: inherit;
         }
     }
 }

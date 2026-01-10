@@ -18,6 +18,7 @@
     margin-bottom: variables.$spacing-xl;
     padding-bottom: variables.$spacing-lg;
     border-bottom: 2px solid variables.$color-text;
+    padding-top: 0;
 
     h1 {
         @extend .page-title;
@@ -36,5 +37,16 @@
         .collection-description {
             font-size: 1rem;
         }
+    }
+}
+
+#welcome-card {
+    padding-bottom: 60px;
+    margin-bottom: 60px;
+    border-bottom: 1px solid variables.$color-border;
+
+
+    h1 {
+        font-family: variables.$font-sans;
     }
 }

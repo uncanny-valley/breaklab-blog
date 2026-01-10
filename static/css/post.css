@@ -95,6 +95,7 @@ footer {
   display: inline-block;
   width: 480px;
   max-width: 90vw;
+  min-height: 100px;
   margin-top: 20px;
 }
 #newsletter-form .mastfoot {
@@ -660,7 +661,7 @@ footer {
 }
 @media (max-width: 768px) {
   .post-header {
-    padding: 2rem 0;
+    padding: 0 0 2rem 0;
   }
   .post-header h1 {
     font-size: 2rem;
@@ -674,5 +675,14 @@ footer {
   }
   .post-content h3 {
     font-size: 1.2rem;
+  }
+  .post-meta {
+    display: block;
+  }
+  .post-meta .spacer {
+    display: none;
+  }
+  .post-meta span, .post-meta time {
+    display: inherit;
   }
 }

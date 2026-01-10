@@ -5,25 +5,47 @@
 
 
 <p>Because you're reading this, you're probably already familiar with large language models (LLMs), or at least with the growing sense that something is changing in how humans learn and produce work.
-As a software engineer and generalist, it's become increasingly hard to dismiss this as background noise. LLMs are changing the texture of day-to-day work, and pushing us toward new abstractions that we'll need to learn if we want to stay effective.</p>
+As a software generalist, it's become increasingly hard to dismiss this as background noise. LLMs are changing the texture of day-to-day work, and pushing us toward new abstractions that we'll need to learn if we want to stay effective.</p>
 
 <p>
-    This is my public attempt at learning these concepts. The intent of this collection of posts isn't to provide a structured guide on how to understand AI. Instead, I'll take a nonlinear, top-down approach: I'll ask questions that I'm curious about and try my best to answer them. My hope is that these rabbit holes will organically unearth deeper, foundational concepts that I'll pick up as needed.
+    This is my public attempt at learning these concepts. The intent of this collection of posts isn't to provide a structured guide on how to understand AI. Instead, I'll take a nonlinear, top-down approach that's tailored to how I learn most efficiently: I'll ask questions that I'm curious about and try my best to answer them. My hope is that these rabbit holes will organically unearth deeper, foundational concepts that I'll pick up as needed.
 
-    I'll invariably make mistakes (and that's kind of the point), but I'll try my best to revise my mental models as I recognize them.
+    I'll invariably make mistakes (and that's kind of the point), but I'll try my best to correct them as I go.
 </p>
+
+<h2>What I think know so far</h2>
+
+<p>
+    I was already exposed to some LLM knowledge (it's hard to avoid). Here's what <i>I think</i> I know so far.
+</p>
+<p>
+    LLMs behave like they understand human language. When we give a model a prompt in English, we expect it to respond in English with something coherent and contextually relevant. 
+    However, under the hood, LLMs aren't directly reasoning about the meaning of words. 
+    
+    They learn statistical regularities in text and use those patterns to predict the next token. Said formally, they approximate a conditional probability distribution over the next token given a sequence of previous tokens:
+    
+    $$P(\text{next token}\ |\ \text{previous tokens})$$
+
+    It selects the best next token using this distribution and the process is repeated. The result it produces is something that's uncannily close to real human language.     
+</p>
+
+<p>
+    LLMs use the transformer architecture<span class="sidenote-ref">1</span><span class="sidenote">Jay Alammar has an excellent <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">illustrative guide</a> on the transformer architecture. It expands on <a href="https://arxiv.org/pdf/1706.03762" target="_blank">Attention Is All You Need (Vaswani et al, 2017)</a>, which first proposed it.</span>.
+
+
+</p>
+
+
+LLMs are trained to minimize next-token prediction loss.
+
+<h2>Questions I have this week</h2>
 
 <p>
     Here are some of the questions I'm interested in this week:
     <ul>
-        <li>What exactly are LLMs trained to do?</li>
+        <li>How does an LLM know when it's done producing a text response?</li>
         <li>What does it actually mean for an LLM to <i>recall</i> a piece of information, and why does that ability degrade at scale?</li>
         <li>How do LLMs retrieve context that it can't recall?</li>
         <li>Why are LLMs excellent at procedural reasoning over verbatim factual recall?</li>
     </ul>
 </p>
-
-
-<h2>What LLMs are trained to do</h2>
-
-LLMs are trained to minimize next-token prediction loss.

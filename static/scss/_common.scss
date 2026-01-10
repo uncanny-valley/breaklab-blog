@@ -27,7 +27,7 @@ body {
 a {
     color: variables.$color-text;
     text-decoration: underline;
-    text-decoration-color: #ccc;
+    text-decoration-color: variables.$color-border-light;
     text-underline-offset: 2px;
     transition: text-decoration-color 0.2s;
 
@@ -68,8 +68,8 @@ header {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background-color: #cc785c;
-    color: #fff;
+    background-color: variables.$color-accent;
+    color: variables.$color-bg-white;
     padding: 0.4rem 0.9rem;
     border-radius: 4px;
     text-decoration: none;
@@ -83,7 +83,7 @@ header {
     }
 
     &:hover {
-        background-color: #b5684e;
+        background-color: variables.$color-accent-hover;
     }
 }
 
@@ -106,6 +106,7 @@ footer {
     display: inline-block;
     width: 480px;
     max-width: 90vw;
+    min-height: 100px;
     margin-top: 20px;
 
     .mastfoot {

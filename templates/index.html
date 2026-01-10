@@ -1,5 +1,12 @@
 {{define "content"}}
 <div class="index">
+    <section id="welcome-card">
+        <h1>BreakLab</h1>
+        <p>
+            Hi, I'm Brandon. I'm a backend software engineer with experience in building and scaling large systems. BreakLab is a blog where I write about and experiment with ideas in system design, AI, and random things that interest me.
+        </p>
+    </section>
+
     {{range .Posts}}
     <div class="list-item">
         <a href="/post/{{.Slug}}"><h2 class="list-item-title">{{.Title}}</h2></a>

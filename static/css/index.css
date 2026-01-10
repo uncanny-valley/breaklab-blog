@@ -95,6 +95,7 @@ footer {
   display: inline-block;
   width: 480px;
   max-width: 90vw;
+  min-height: 100px;
   margin-top: 20px;
 }
 #newsletter-form .mastfoot {
@@ -372,6 +373,7 @@ footer {
   margin-bottom: 3rem;
   padding-bottom: 2rem;
   border-bottom: 2px solid #1a1a1a;
+  padding-top: 0;
 }
 .collection-header h1 {
   margin-bottom: 1rem;
@@ -386,4 +388,12 @@ footer {
   .collection-header .collection-description {
     font-size: 1rem;
   }
+}
+#welcome-card {
+  padding-bottom: 60px;
+  margin-bottom: 60px;
+  border-bottom: 1px solid #e8e8e8;
+}
+#welcome-card h1 {
+  font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
